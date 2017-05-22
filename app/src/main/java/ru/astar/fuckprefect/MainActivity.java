@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
     private void uploadTest() {
         String k;
         int i = 1 + 1;
-        int k;
+
     }
 }
