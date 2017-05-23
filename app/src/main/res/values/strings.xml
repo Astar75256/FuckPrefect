@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">FuckPrefect</string>
+    <string name="prev_sym"><![CDATA[<-]]></string>
+    <string name="next_sym"><![CDATA[->]]></string>
+    <string name="save">Save</string>
+    <string name="increment_minute">+1 min</string>
+    <string name="decrement_minute">-1 min</string>
+    <string name="set_date">Set Date</string>
+    <string name="setted_data">Установленая дата:</string>
+    <string name="count_photo">Количество фото:</string>
+    <string name="open_dir">Открыть директорию</string>
+    <string name="settings">Настройки</string>
+    <string name="about">О программе</string>
+    <string name="exit">Выход</string>
 </resources>
