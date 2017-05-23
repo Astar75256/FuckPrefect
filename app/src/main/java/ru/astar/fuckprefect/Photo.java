@@ -78,6 +78,10 @@ public class Photo {
 
     }
 
+    public void close() {
+        currentImage = null;
+    }
+
     public int getFontSize() {
         return fontSize;
     }
@@ -116,10 +120,6 @@ public class Photo {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public void close() {
-        currentImage = null;
     }
 
     public void setQuality(int quality) {
