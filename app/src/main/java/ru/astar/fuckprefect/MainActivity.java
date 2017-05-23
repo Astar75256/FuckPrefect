@@ -1,13 +1,19 @@
 package ru.astar.fuckprefect;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView countImageTextView;
 
     private Photo photo;
+    private Calendar calendar;
+    private String dateTimeString;
     private String[] listFiles;
     private int itemImage = 0;
 
@@ -30,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initView();
         Tools.init(this);
         photo = new Photo();
+        calendar = Calendar.getInstance();
+        setDateTime();
+        initView();
     }
 
     private void initView() {
@@ -58,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (listFiles == null)
             countImageTextView.setText("Откройте директорию (кнопка вверху)");
+
+        settedDateTextView.setText(getString(R.string.setted_data) + " " + dateTimeString);
     }
 
     @Override
@@ -95,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
+                case R.id.previewImage:
+                    reloadImage();
+                    break;
+
                 case R.id.prevImageButton:
                     chooseImage(Tools.Mode.LEFT);
                     break;
@@ -106,7 +122,62 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.saveImageButton:
                     saveAndEditImage();
                     break;
+
+                case R.id.setDateTimeButton:
+                    showDateDialog();
+                    showTimeDialog();
+                    break;
             }
+        }
+    }
+
+    /**
+     * Показать диалог выбора даты
+     */
+    private void showDateDialog() {
+        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                setDateTime();
+            }
+        },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    /**
+     * Показать диалог выбора времени
+     */
+    private void showTimeDialog() {
+        TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                setDateTime();
+            }
+        },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), true);
+        dialog.show();
+    }
+
+    private void setDateTime() {
+        dateTimeString = Tools.getStringDate(calendar.getTime());
+
+    }
+
+    /**
+     * Перезагрузить изображение
+     */
+    private void reloadImage() {
+        if (listFiles != null && listFiles.length != 0) {
+            setPreviewImage(listFiles[itemImage]);
         }
     }
 
@@ -138,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         if (listFiles != null && listFiles.length != 0) {
             // выводим количество фото
             countImageTextView
-                    .setText(getString(R.string.index_photo) + (itemImage + 1) +  "; "
+                    .setText(getString(R.string.index_photo) + (itemImage + 1) + "; "
                             + getString(R.string.count_photo) + listFiles.length);
             // устанавливаем Первое фото
             setPreviewImage(listFiles[0]);
@@ -149,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Выбрать картинку (листать влево или вправо)
+     *
      * @param mode режим: LEFT (влево) и RIGHT (вправо)
      */
     private void chooseImage(Tools.Mode mode) {
@@ -174,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             countImageTextView
-                    .setText(getString(R.string.index_photo) + (itemImage + 1) +  "; "
+                    .setText(getString(R.string.index_photo) + (itemImage + 1) + "; "
                             + getString(R.string.count_photo) + listFiles.length);
             setPreviewImage(listFiles[itemImage]);
         }
@@ -182,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Установить картинку в ImageView
+     *
      * @param filename
      */
     private void setPreviewImage(String filename) {
