@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
 
     private ImageView previewImage;
@@ -57,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         decrementMinuteButton.setOnClickListener(clickListener);
         incrementMinuteButton.setOnClickListener(clickListener);
         setDateButton.setOnClickListener(clickListener);
+
+        if (listFiles == null)
+            countImageTextView.setText("Откройте директорию (кнопка вверху)");
     }
 
     @Override
@@ -101,39 +102,88 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nextImageButton:
                     chooseImage(Tools.Mode.RIGHT);
                     break;
+
+                case R.id.saveImageButton:
+                    saveAndEditImage();
+                    break;
             }
         }
     }
 
+    /**
+     * Сохранить и отредактировать картинку
+     */
+    private void saveAndEditImage() {
+        if (listFiles != null && listFiles.length != 0) {
+            String filename = photo.getFilename();
+            if (!filename.isEmpty()) {
+                filename = Tools.DIR_OUT + filename;
+                photo.setText("Какой то текст");
+                photo.edit();
+                previewImage.setImageBitmap(photo.getCurrentImage());
+                if (photo.save(filename)) {
+                    Tools.showMessage("Фото сохранено " + filename);
+                    return;
+                }
+            }
+        }
+        Tools.showMessage("Ошибка при сохранении!");
+    }
 
+    /**
+     * Открыть директорию source
+     */
     private void openDir() {
         listFiles = Tools.getListFiles();
         if (listFiles != null && listFiles.length != 0) {
+            // выводим количество фото
+            countImageTextView
+                    .setText(getString(R.string.index_photo) + (itemImage + 1) +  "; "
+                            + getString(R.string.count_photo) + listFiles.length);
             // устанавливаем Первое фото
             setPreviewImage(listFiles[0]);
+            return;
         }
         Tools.showMessage("Папка пуста!");
     }
 
+    /**
+     * Выбрать картинку (листать влево или вправо)
+     * @param mode режим: LEFT (влево) и RIGHT (вправо)
+     */
     private void chooseImage(Tools.Mode mode) {
         if (listFiles != null && listFiles.length != 0) {
             switch (mode) {
                 case LEFT:
                     itemImage--;
-                    if (itemImage < 0)
-                        itemImage = 0;
                     break;
 
                 case RIGHT:
                     itemImage++;
-                    if (itemImage > listFiles.length)
-                        itemImage = listFiles.length;
                     break;
             }
+            if (itemImage < 0) {
+                itemImage = 0;
+                Tools.showMessage("Это первая картинка!");
+                return;
+            }
+            if (itemImage > listFiles.length - 1) {
+                itemImage = listFiles.length - 1;
+                Tools.showMessage("Это последняя картинка!");
+                return;
+            }
+
+            countImageTextView
+                    .setText(getString(R.string.index_photo) + (itemImage + 1) +  "; "
+                            + getString(R.string.count_photo) + listFiles.length);
             setPreviewImage(listFiles[itemImage]);
         }
     }
 
+    /**
+     * Установить картинку в ImageView
+     * @param filename
+     */
     private void setPreviewImage(String filename) {
         if (!filename.isEmpty()) {
             previewImage.setImageBitmap(photo.open(filename));

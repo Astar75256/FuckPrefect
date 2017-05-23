@@ -21,8 +21,8 @@ public class Tools {
         RIGHT
     }
 
-    public static final String DIR_SOURCE = Environment.getExternalStorageDirectory() + "/FuckPrefect/source/";
-    public static final String DIR_OUT = Environment.getExternalStorageDirectory() + "/FuckPrefect/out/";
+    public static final String DIR_SOURCE = Environment.getExternalStorageDirectory() + "/FuckPrefect/source";
+    public static final String DIR_OUT = Environment.getExternalStorageDirectory() + "/FuckPrefect/out";
 
     private static Context context;
 

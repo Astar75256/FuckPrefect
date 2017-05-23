@@ -29,12 +29,16 @@ public class Photo {
     private int xPos;
     private int yPos;
     private int[] color = new int[3];
-    private String text = null;
+    private String text = "";
+
+    private String filename;
 
     public Bitmap open(String filename) {
-        if (!filename.isEmpty())
-            return currentImage = BitmapFactory.decodeFile(filename);
-
+        if (!filename.isEmpty()) {
+            this.filename = filename;
+            this.currentImage = BitmapFactory.decodeFile(filename);
+            return currentImage;
+        }
         return null;
     }
 
@@ -55,7 +59,7 @@ public class Photo {
         return false;
     }
 
-    public Bitmap edit() {
+    public void edit() {
         if (currentImage != null && !text.isEmpty()) {
             if (fontSize <= 0) fontSize = DEFAULT_FONT_SIZE;
             if (xPos <= 0) xPos = DEFAULT_X_POS;
@@ -71,15 +75,15 @@ public class Photo {
             paint.setColor(Color.rgb(color[0], color[1], color[2]));
             paint.setTextSize(fontSize);
             canvas.drawText(text, xPos, yPos, paint);
-
-            return currentImage;
         }
-        return null;
-
     }
 
     public void close() {
         currentImage = null;
+    }
+
+    public String getFilename() {
+        return filename = filename.substring(filename.lastIndexOf("/"));
     }
 
     public int getFontSize() {
