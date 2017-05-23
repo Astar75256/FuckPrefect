@@ -2,8 +2,11 @@ package ru.astar.fuckprefect;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Tools.init(this);
         photo = new Photo();
         calendar = Calendar.getInstance();
-        setDateTime();
+        setDateTimeString();
         initView();
     }
 
@@ -69,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         if (listFiles == null)
             countImageTextView.setText("Откройте директорию (кнопка вверху)");
 
-        settedDateTextView.setText(getString(R.string.setted_data) + " " + dateTimeString);
+        // обновить дату в TextView
+        updateDateTextView();
     }
 
     @Override
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.aboutItem:
-
+                showAbout();
                 break;
 
             case R.id.exitItem:
@@ -127,8 +131,56 @@ public class MainActivity extends AppCompatActivity {
                     showDateDialog();
                     showTimeDialog();
                     break;
+
+                case R.id.decrementMinuteButton:
+                    setMinute(Tools.Mode.LEFT);
+                    break;
+
+                case R.id.incrementMinuteButton:
+                    setMinute(Tools.Mode.RIGHT);
+                    break;
             }
         }
+    }
+
+    /**
+     * Установить минуты
+     * @param mode
+     */
+    private void setMinute(Tools.Mode mode) {
+        int minute = calendar.get(Calendar.MINUTE);
+
+        switch (mode) {
+            case LEFT:
+                minute--;
+                break;
+            case RIGHT:
+                minute++;
+                break;
+        }
+
+        calendar.set(Calendar.MINUTE, minute);
+        updateDateTextView();
+    }
+
+    /**
+     * Показать алерт
+     */
+    private void showAbout() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("О программе")
+                .setMessage("Программа для вставки произвольной даты и времени в фотографии. " +
+                "Писалась для личных нужд для работы.\n\n" +
+                "Автор: Astar75, 2017 год. (с)")
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     /**
@@ -141,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                setDateTime();
+                updateDateTextView();
             }
         },
                 calendar.get(Calendar.YEAR),
@@ -159,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
-                setDateTime();
+                updateDateTextView();
             }
         },
                 calendar.get(Calendar.HOUR_OF_DAY),
@@ -167,9 +219,19 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void setDateTime() {
-        dateTimeString = Tools.getStringDate(calendar.getTime());
+    /**
+     * Обновить дату на экране
+     */
+    private void updateDateTextView() {
+        setDateTimeString();
+        settedDateTextView.setText(getString(R.string.setted_data) + " " + dateTimeString);
+    }
 
+    /**
+     * установить дату и время в строку
+     */
+    private void setDateTimeString() {
+        dateTimeString = Tools.getStringDate(calendar.getTime());
     }
 
     /**

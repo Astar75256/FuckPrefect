@@ -11,7 +11,7 @@
         android:id="@+id/previewImage"
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="250dp" />
 
     <Button
         android:id="@+id/prevImageButton"
@@ -44,6 +44,7 @@
     <Button
         android:id="@+id/decrementMinuteButton"
         android:layout_below="@id/nextImageButton"
+        android:layout_marginTop="16dp"
         android:text="@string/decrement_minute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -51,6 +52,7 @@
     <Button
         android:id="@+id/incrementMinuteButton"
         android:text="@string/increment_minute"
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nextImageButton"
@@ -61,6 +63,7 @@
         android:id="@+id/setDateTimeButton"
         android:layout_below="@id/saveImageButton"
         android:text="@string/set_date"
+        android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
