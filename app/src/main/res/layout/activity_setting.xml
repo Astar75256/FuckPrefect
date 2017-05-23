@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context="ru.astar.fuckprefect.SettingActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titlePosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Позиция текста"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/positionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titlePosition">
+
+            <EditText
+                android:id="@+id/posXField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:hint="X position" />
+
+            <EditText
+                android:id="@+id/posYField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="1"
+                android:hint="Y position" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/titleColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/positionLayout"
+            android:layout_marginTop="8dp"
+            android:text="Цвет текста"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/titleRedChannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleColor"
+            android:layout_marginTop="8dp"
+            android:text="Красный"
+            android:textAlignment="center" />
+
+        <SeekBar
+            android:id="@+id/redChannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleRedChannel" />
+
+        <TextView
+            android:id="@+id/titleGreenChannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/redChannel"
+            android:text="Зеленый"
+            android:textAlignment="center" />
+
+        <SeekBar
+            android:id="@+id/greenChannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleGreenChannel" />
+
+        <TextView
+            android:id="@+id/titleBlueChannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/greenChannel"
+            android:text="Синий"
+            android:textAlignment="center" />
+
+        <SeekBar
+            android:id="@+id/blueChannel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleBlueChannel" />
+
+        <TextView
+            android:id="@+id/pallete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/blueChannel"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            android:textAlignment="center"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/titleOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pallete"
+            android:layout_marginTop="8dp"
+            android:text="Прочее"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/qualityTitle"
+            android:layout_below="@+id/titleOther"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignBaseline="@id/quality"
+            android:text="Качество картинки:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/quality"
+            android:layout_below="@id/titleOther"
+            android:layout_toRightOf="@id/qualityTitle"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textSizeTitle"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Размер текста:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textSize"
+            android:layout_alignBottom="@+id/textSize"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/textSize"
+            android:layout_below="@id/quality"
+            android:layout_toRightOf="@id/qualityTitle"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/typeFontTitle"
+            android:text="Тип шрифта: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Spinner
+            android:id="@+id/typeFont"
+            android:layout_below="@id/textSize"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/typeFontTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</ScrollView>
