@@ -1,6 +1,7 @@
 package ru.astar.fuckprefect;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.widget.Toast;
 
@@ -9,6 +10,7 @@ import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by molot on 23.05.2017.
@@ -24,8 +26,20 @@ public class Tools {
     public static final String DIR_SOURCE = Environment.getExternalStorageDirectory() + "/FuckPrefect/source";
     public static final String DIR_OUT = Environment.getExternalStorageDirectory() + "/FuckPrefect/out";
 
+    public static final String NAME_SETTING = "APP_SETTING";
+
+    public static final String PREF_X_POS = "xPos";
+    public static final String PREF_Y_POS = "yPos";
+    public static final String PREF_RED_COLOR = "red";
+    public static final String PREF_GREEN_COLOR = "green";
+    public static final String PREF_BLUE_COLOR = "blue";
+    public static final String PREF_QUALITY = "quality";
+    public static final String PREF_TEXT_SIZE = "textSize";
+    public static final String PREF_FONT_TYPE = "fontType";
+
     private static Context context;
 
+    private static SharedPreferences preferences;
 
     public static void init(Context context) {
         Tools.context = context;
@@ -79,6 +93,15 @@ public class Tools {
             else
                 showMessage("Ошибка при создании директории " + dirOut.getName());
         }
+    }
+
+    public static SharedPreferences getPreferences() {
+        if (context != null) {
+            if (preferences == null)
+                preferences = context.getSharedPreferences(NAME_SETTING, Context.MODE_PRIVATE);
+            return preferences;
+        }
+        return null;
     }
 
 }

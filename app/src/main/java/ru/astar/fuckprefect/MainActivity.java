@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.settingItem:
-
+                SettingActivity.startActivity(this);
                 break;
 
             case R.id.aboutItem:

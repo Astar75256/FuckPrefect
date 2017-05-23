@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:hint="X position" />
+                android:hint="X position"
+                android:maxLength="4" />
 
             <EditText
                 android:id="@+id/posYField"
@@ -40,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_weight="1"
-                android:hint="Y position" />
+                android:hint="Y position"
+                android:maxLength="4" />
 
         </LinearLayout>
 
@@ -68,7 +70,8 @@
             android:id="@+id/redChannel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/titleRedChannel" />
+            android:layout_below="@id/titleRedChannel"
+            android:max="255" />
 
         <TextView
             android:id="@+id/titleGreenChannel"
@@ -82,7 +85,8 @@
             android:id="@+id/greenChannel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/titleGreenChannel" />
+            android:layout_below="@id/titleGreenChannel"
+            android:max="255" />
 
         <TextView
             android:id="@+id/titleBlueChannel"
@@ -96,7 +100,8 @@
             android:id="@+id/blueChannel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/titleBlueChannel" />
+            android:layout_below="@id/titleBlueChannel"
+            android:max="255" />
 
         <TextView
             android:id="@+id/pallete"
@@ -121,60 +126,63 @@
 
         <TextView
             android:id="@+id/qualityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/quality"
             android:layout_below="@+id/titleOther"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:layout_alignBaseline="@id/quality"
             android:text="Качество картинки:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <EditText
+        <SeekBar
             android:id="@+id/quality"
-            android:layout_below="@id/titleOther"
-            android:layout_toRightOf="@id/qualityTitle"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/titleOther"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/qualityTitle"
+            android:max="100" />
 
         <TextView
             android:id="@+id/textSizeTitle"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Размер текста:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textSize"
             android:layout_alignBottom="@+id/textSize"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:text="Размер текста:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
             android:id="@+id/textSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_below="@id/quality"
             android:layout_toRightOf="@id/qualityTitle"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:maxLength="3" />
 
         <TextView
             android:id="@+id/typeFontTitle"
-            android:text="Тип шрифта: "
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:text="Тип шрифта: "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Spinner
             android:id="@+id/typeFont"
-            android:layout_below="@id/textSize"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/typeFontTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/textSize"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/typeFontTitle" />
 
     </RelativeLayout>
 
