@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView settedDateTextView;
     private TextView countImageTextView;
 
+    private Photo photo;
+    private String[] listFiles;
+    private int itemImage = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         Tools.init(this);
+        photo = new Photo();
     }
 
     private void initView() {
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.openDirectoryItem:
-
+                openDir();
                 break;
 
             case R.id.settingItem:
@@ -84,12 +89,54 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     private class ClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
+                case R.id.prevImageButton:
+                    chooseImage(Tools.Mode.LEFT);
+                    break;
 
+                case R.id.nextImageButton:
+                    chooseImage(Tools.Mode.RIGHT);
+                    break;
             }
+        }
+    }
+
+
+    private void openDir() {
+        listFiles = Tools.getListFiles();
+        if (listFiles != null && listFiles.length != 0) {
+            // устанавливаем Первое фото
+            setPreviewImage(listFiles[0]);
+        }
+        Tools.showMessage("Папка пуста!");
+    }
+
+    private void chooseImage(Tools.Mode mode) {
+        if (listFiles != null && listFiles.length != 0) {
+            switch (mode) {
+                case LEFT:
+                    itemImage--;
+                    if (itemImage < 0)
+                        itemImage = 0;
+                    break;
+
+                case RIGHT:
+                    itemImage++;
+                    if (itemImage > listFiles.length)
+                        itemImage = listFiles.length;
+                    break;
+            }
+            setPreviewImage(listFiles[itemImage]);
+        }
+    }
+
+    private void setPreviewImage(String filename) {
+        if (!filename.isEmpty()) {
+            previewImage.setImageBitmap(photo.open(filename));
         }
     }
 }

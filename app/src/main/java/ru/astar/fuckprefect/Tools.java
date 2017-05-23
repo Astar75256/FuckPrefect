@@ -16,6 +16,11 @@ import java.util.Date;
 
 public class Tools {
 
+    enum Mode {
+        LEFT,
+        RIGHT
+    }
+
     public static final String DIR_SOURCE = Environment.getExternalStorageDirectory() + "/FuckPrefect/source/";
     public static final String DIR_OUT = Environment.getExternalStorageDirectory() + "/FuckPrefect/out/";
 
@@ -75,7 +80,5 @@ public class Tools {
                 showMessage("Ошибка при создании директории " + dirOut.getName());
         }
     }
-
-
 
 }
