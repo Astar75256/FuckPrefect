@@ -1,16 +1,13 @@
 package ru.astar.fuckprefect;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Environment;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * Created by molot on 23.05.2017.
@@ -38,6 +35,20 @@ public class Tools {
     public static final String PREF_QUALITY = "quality";
     public static final String PREF_TEXT_SIZE = "textSize";
     public static final String PREF_FONT_TYPE = "fontType";
+
+    public static int colorRed;
+    public static int colorGreen;
+    public static int colorBlue;
+
+    // позиция текста
+    public static int xPos;
+    public static int yPos;
+
+    // размер шрифта
+    public static int textSize;
+
+    // качество сохраняемой картинки
+    public static int quality;
 
     private static Context context;
 

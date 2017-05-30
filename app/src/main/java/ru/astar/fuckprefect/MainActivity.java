@@ -3,6 +3,8 @@ package ru.astar.fuckprefect;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private String dateTimeString;
     private String[] listFiles;
     private int itemImage = 0;
+    private SharedPreferences options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Tools.init(this);
         photo = new Photo();
         calendar = Calendar.getInstance();
+
         setDateTimeString();
         initView();
     }
@@ -73,6 +77,48 @@ public class MainActivity extends AppCompatActivity {
 
         // обновить дату в TextView
         updateDateTextView();
+        // перезагрузить настройки
+        reloadSettings();
+    }
+
+    /**
+     * Перезагрузить настройки
+     */
+    private void reloadSettings() {
+        if (options == null) options = getSharedPreferences(Tools.PREF_NAME, MODE_PRIVATE);
+
+        // цвет
+        int colorRed   = options.contains(Tools.PREF_RED_COLOR) ? options.getInt(Tools.PREF_RED_COLOR, 0) : Photo.DEFAULT_COLOR[0];
+        int colorGreen = options.contains(Tools.PREF_GREEN_COLOR) ? options.getInt(Tools.PREF_GREEN_COLOR, 0) : Photo.DEFAULT_COLOR[1];
+        int colorBlue  = options.contains(Tools.PREF_BLUE_COLOR) ? options.getInt(Tools.PREF_BLUE_COLOR, 0) : Photo.DEFAULT_COLOR[2];
+
+        // позиция текста
+        int xPos = options.contains(Tools.PREF_X_POS) ? options.getInt(Tools.PREF_X_POS, 0) : Photo.DEFAULT_X_POS;
+        int yPos = options.contains(Tools.PREF_Y_POS) ? options.getInt(Tools.PREF_Y_POS, 0) : Photo.DEFAULT_Y_POS;
+
+        // размер шрифта
+        int textSize = options.contains(Tools.PREF_TEXT_SIZE) ? options.getInt(Tools.PREF_TEXT_SIZE, 0) : Photo.DEFAULT_FONT_SIZE;
+
+        // качество сохраняемой картинки
+        int quality = options.contains(Tools.PREF_QUALITY) ? options.getInt(Tools.PREF_QUALITY, 0) : Photo.DEFAULT_QUALITY;
+
+        photo.setColor(new int[] {colorRed, colorGreen, colorBlue});
+        photo.setxPos(xPos);
+        photo.setyPos(yPos);
+        photo.setQuality(quality);
+        photo.setFontSize(textSize);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SettingActivity.REQ_CODE_SETTINGS) {
+            if (resultCode == RESULT_OK) {
+                reloadSettings();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -90,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.settingItem:
-                SettingActivity.startActivity(this);
+                SettingActivity.startActivity(this, SettingActivity.REQ_CODE_SETTINGS);
                 break;
 
             case R.id.aboutItem:
@@ -249,11 +295,11 @@ public class MainActivity extends AppCompatActivity {
         if (listFiles != null && listFiles.length != 0) {
             String filename = photo.getFilename();
             if (!filename.isEmpty()) {
-                filename = Tools.DIR_OUT + filename;
-                photo.setText("Какой то текст");
-                photo.edit();
+                filename = Tools.DIR_OUT + filename;  // имя файла
+                photo.setText(dateTimeString);        // задаем дату в качестве текста для вывода
+                photo.edit();                         // редактируем картинку
                 previewImage.setImageBitmap(photo.getCurrentImage());
-                if (photo.save(filename)) {
+                if (photo.save(filename)) {           // сохраняем в файловой системе
                     Tools.showMessage("Фото сохранено " + filename);
                     return;
                 }

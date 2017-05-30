@@ -13,4 +13,5 @@
     <string name="about">О программе</string>
     <string name="exit">Выход</string>
     <string name="index_photo">Фото #</string>
+    <string name="qulity_image">Качество картинки</string>
 </resources>

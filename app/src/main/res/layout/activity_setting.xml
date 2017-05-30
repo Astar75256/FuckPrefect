@@ -132,7 +132,7 @@
             android:layout_below="@+id/titleOther"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="Качество картинки:"
+            android:text="@string/qulity_image"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <SeekBar
