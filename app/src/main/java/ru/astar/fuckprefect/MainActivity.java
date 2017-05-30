@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Установить минуты
-     * @param mode
+     * @param mode LEFT меньше, RIGHT больше на одну минуту
      */
     private void setMinute(Tools.Mode mode) {
         int minute = calendar.get(Calendar.MINUTE);
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Установить картинку в ImageView
      *
-     * @param filename
+     * @param filename путь к картинке
      */
     private void setPreviewImage(String filename) {
         if (!filename.isEmpty()) {

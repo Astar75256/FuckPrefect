@@ -34,26 +34,6 @@ public class SettingActivity extends AppCompatActivity {
         qualityBar = (SeekBar) findViewById(R.id.quality);
         textSizeField = (EditText) findViewById(R.id.textSize);
         fontTypeField = (Spinner) findViewById(R.id.typeFont);
-
-        SharedPreferences preferences = Tools.getPreferences();
-
-        if (preferences != null) {
-            if (preferences.contains(Tools.PREF_X_POS))
-                xPosField.setText(preferences.getInt(Tools.PREF_X_POS, 0));
-            if (preferences.contains(Tools.PREF_Y_POS))
-                yPosField.setText(preferences.getInt(Tools.PREF_Y_POS, 0));
-            if (preferences.contains(Tools.PREF_RED_COLOR))
-                redChannel.setProgress(preferences.getInt(Tools.PREF_RED_COLOR, 0));
-            if (preferences.contains(Tools.PREF_GREEN_COLOR))
-                greenChannel.setProgress(preferences.getInt(Tools.PREF_GREEN_COLOR, 0));
-            if (preferences.contains(Tools.PREF_BLUE_COLOR))
-                blueChannel.setProgress(preferences.getInt(Tools.PREF_BLUE_COLOR, 0));
-            if (preferences.contains(Tools.PREF_QUALITY))
-                qualityBar.setProgress(preferences.getInt(Tools.PREF_QUALITY, 0));
-            if (preferences.contains(Tools.PREF_TEXT_SIZE))
-                textSizeField.setText(preferences.getInt(Tools.PREF_TEXT_SIZE, 0));
-            // if (preferences.contains(Tools.PREF_FONT_TYPE)) {}
-        }
     }
 
     public static void startActivity(Activity activity) {
@@ -92,18 +72,6 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void save() {
-        SharedPreferences preferences = Tools.getPreferences();
-        if (preferences != null) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(Tools.PREF_X_POS, Integer.parseInt(xPosField.getText().toString()));
-            editor.putInt(Tools.PREF_Y_POS, Integer.parseInt(yPosField.getText().toString()));
-            editor.putInt(Tools.PREF_RED_COLOR, redChannel.getProgress());
-            editor.putInt(Tools.PREF_GREEN_COLOR, greenChannel.getProgress());
-            editor.putInt(Tools.PREF_BLUE_COLOR, blueChannel.getProgress());
-            editor.putInt(Tools.PREF_QUALITY, qualityBar.getProgress());
-            editor.putInt(Tools.PREF_TEXT_SIZE, Integer.parseInt(textSizeField.getText().toString()));
-            // font
-            editor.commit();
-        }
+
     }
 }

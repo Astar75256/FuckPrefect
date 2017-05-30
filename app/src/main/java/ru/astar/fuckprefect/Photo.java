@@ -33,6 +33,11 @@ public class Photo {
 
     private String filename;
 
+    /**
+     * Открыть изображение
+     * @param filename путь к файлу
+     * @return
+     */
     public Bitmap open(String filename) {
         if (!filename.isEmpty()) {
             this.filename = filename;
@@ -42,6 +47,11 @@ public class Photo {
         return null;
     }
 
+    /**
+     * Сохранить изображение
+     * @param filename путь для сохранения
+     * @return
+     */
     public boolean save(String filename) {
         if (currentImage != null && !filename.isEmpty()) {
             try {
@@ -59,6 +69,10 @@ public class Photo {
         return false;
     }
 
+
+    /**
+     * Редактирует изображение
+     */
     public void edit() {
         if (currentImage != null && !text.isEmpty()) {
             if (fontSize <= 0) fontSize = DEFAULT_FONT_SIZE;

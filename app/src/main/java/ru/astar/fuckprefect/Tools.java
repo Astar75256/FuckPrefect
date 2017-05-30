@@ -26,7 +26,9 @@ public class Tools {
     public static final String DIR_SOURCE = Environment.getExternalStorageDirectory() + "/FuckPrefect/source";
     public static final String DIR_OUT = Environment.getExternalStorageDirectory() + "/FuckPrefect/out";
 
-    public static final String NAME_SETTING = "APP_SETTING";
+    public static final String PREF_NAME = "pref_fuck_prefect";
+
+    public static final String FILE_FILTER_JPG = ".*\\.jpg";
 
     public static final String PREF_X_POS = "xPos";
     public static final String PREF_Y_POS = "yPos";
@@ -39,24 +41,35 @@ public class Tools {
 
     private static Context context;
 
-    private static SharedPreferences preferences;
-
+    /**
+     * Инициализация
+     * @param context
+     */
     public static void init(Context context) {
         Tools.context = context;
         Tools.createDirs();
     }
 
+    /**
+     * Возвращает дату и время в виде строки
+     * @param date дата
+     * @return вернет в формате 30.05.2017 18:30
+     */
     public static String getStringDate(Date date) {
         return new SimpleDateFormat("dd.MM.yyyy HH:mm").format(date.getTime());
     }
 
+    /**
+     * Возвращает список файлов
+     * @return
+     */
     public static String[] getListFiles() {
         File dirSource = new File(DIR_SOURCE);
         if (dirSource.exists()) {
             File[] files = dirSource.listFiles(new FilenameFilter() {
                 @Override
                 public boolean accept(File file, String fileName) {
-                    String filter = ".*\\.jpg";
+                    String filter = FILE_FILTER_JPG;  // файловый фильтр
                     File tempFile = new File(String.format("%s/%s", file.getPath(), fileName));
                     if (tempFile.isFile())
                         return tempFile.getName().matches(filter);
@@ -74,10 +87,18 @@ public class Tools {
         return null;
     }
 
+    /**
+     * Показать Toast сообщение
+     * @param message текст сообщения
+     */
     public static void showMessage(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
+
+    /**
+     * Создать папки Source и Out в файловой системе
+     */
     private static void createDirs() {
         File dirSource = new File(DIR_SOURCE);
         File dirOut = new File(DIR_OUT);
@@ -95,13 +116,5 @@ public class Tools {
         }
     }
 
-    public static SharedPreferences getPreferences() {
-        if (context != null) {
-            if (preferences == null)
-                preferences = context.getSharedPreferences(NAME_SETTING, Context.MODE_PRIVATE);
-            return preferences;
-        }
-        return null;
-    }
 
 }
