@@ -141,11 +141,11 @@ public class SettingActivity extends AppCompatActivity {
                 break;
 
             case R.id.clearSourceItem:
-
+                Tools.clearSourceDir();
                 break;
 
             case R.id.clearOutItem:
-
+                Tools.clearOutDir();
                 break;
         }
         return true;
@@ -173,6 +173,7 @@ public class SettingActivity extends AppCompatActivity {
 
             Tools.showMessage("Настройки сохранены!");
             setResult(RESULT_OK);
+            finish();
         }
     }
 }

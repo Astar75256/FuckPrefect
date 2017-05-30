@@ -127,5 +127,25 @@ public class Tools {
         }
     }
 
+    public static void clearSourceDir() {
+        File dirSource = new File(DIR_SOURCE);
+        if (dirSource.exists() && dirSource.isDirectory()) {
+            File[] files = dirSource.listFiles();
+            for (File file :files) {
+                file.delete();
+            }
+        }
+    }
+
+    public static void clearOutDir() {
+        File dirSource = new File(DIR_OUT);
+        if (dirSource.exists() && dirSource.isDirectory()) {
+            File[] files = dirSource.listFiles();
+            for (File file :files) {
+                file.delete();
+            }
+        }
+    }
+
 
 }
