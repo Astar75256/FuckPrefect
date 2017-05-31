@@ -142,10 +142,12 @@ public class SettingActivity extends AppCompatActivity {
 
             case R.id.clearSourceItem:
                 Tools.clearSourceDir();
+                Tools.showMessage("Папка Source очищена!");
                 break;
 
             case R.id.clearOutItem:
                 Tools.clearOutDir();
+                Tools.showMessage("Папка Out очищена!");
                 break;
         }
         return true;

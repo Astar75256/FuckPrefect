@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         settedDateTextView = (TextView) findViewById(R.id.settedDataTextView);
         countImageTextView = (TextView) findViewById(R.id.countImageTextView);
 
+
         ClickListener clickListener = new ClickListener();
 
         previewImage.setOnClickListener(clickListener);
@@ -294,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
     private void saveAndEditImage() {
         if (listFiles != null && listFiles.length != 0) {
             String filename = photo.getFilename();
+            filename = filename.replace("IMG_", "photo_");
             if (!filename.isEmpty()) {
                 filename = Tools.DIR_OUT + filename;  // имя файла
                 photo.setText(dateTimeString);        // задаем дату в качестве текста для вывода
@@ -366,6 +368,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setPreviewImage(String filename) {
         if (!filename.isEmpty()) {
+            previewImage.setBackground(null);
             previewImage.setImageBitmap(photo.open(filename));
         }
     }
